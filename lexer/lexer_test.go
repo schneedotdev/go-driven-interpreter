@@ -92,7 +92,7 @@ func TestNextToken(t  *testing.T) {
 		{token.RETURN, "return"},
 		{token.FALSE, "false"},
 		{token.SEMICOLON, ";"},
-		{token.RBRACE, "-"},
+		{token.RBRACE, "}"},
 		{token.EOF, ""},
 	}
 
