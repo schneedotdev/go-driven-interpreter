@@ -6,7 +6,6 @@ import (
 	"monkeylang.com/go/token"
 )
 
-
 func TestNextToken(t  *testing.T) {
 	input := `let five = 5;
 	let ten = 10;
@@ -18,6 +17,12 @@ func TestNextToken(t  *testing.T) {
 	let result = add(five, ten);
 	!-/*5;
 	5 < 10 > 5;
+
+	if (5 < 10) {
+		return true;
+	} else {
+		return false;
+	}
 	`
 
 	tests := []struct {
@@ -71,6 +76,23 @@ func TestNextToken(t  *testing.T) {
 		{token.GT, ">"},
 		{token.INT, "5"},
 		{token.SEMICOLON, ";"},
+		{token.IF, "if"},
+		{token.LPAREN, "("},
+		{token.INT, "5"},
+		{token.LT, "<"},
+		{token.INT, "10"},
+		{token.RPAREN, ")"},
+		{token.LBRACE, "{"},
+		{token.RETURN, "return"},
+		{token.TRUE, "true"},
+		{token.SEMICOLON, ";"},
+		{token.RBRACE, "}"},
+		{token.ELSE, "else"},
+		{token.LBRACE, "{"},
+		{token.RETURN, "return"},
+		{token.FALSE, "false"},
+		{token.SEMICOLON, ";"},
+		{token.RBRACE, "-"},
 		{token.EOF, ""},
 	}
 
@@ -78,14 +100,19 @@ func TestNextToken(t  *testing.T) {
 
 	for i, tt := range tests {
 		tok := l.NextToken()
-
-
+		
 		if tok.Type != tt.expectedType {
-			t.Fatalf("tests[%d] - tokentype of the value %q was incorrect.\nexpected=%q, got=%q\n", i, tok.Literal, tt.expectedType, tok.Type)
-		}
+    t.Fatalf("\x1b[31mtest %d [TokenType did not match]\n"+
+				"\texpected %q\n"+
+				"\treceived %q\x1b[0m",
+        i, tt.expectedType, tok.Type)
+}
 
-		if tok.Literal != tt.expectedLiteral {
-			t.Fatalf("tests[%d] - literal wrong. expected=%q, got=%q", i, tt.expectedLiteral, tok.Literal)
-		}
+if tok.Literal != tt.expectedLiteral {
+    t.Fatalf("\x1b[31mtest %d [Literal did not match]\n"+
+				"\texpected %q\n"+
+				"\treceived %q\x1b[0m",
+        i, tt.expectedLiteral, tok.Literal)
+}
 	}
 }
