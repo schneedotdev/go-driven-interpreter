@@ -18,6 +18,14 @@ const (
 	// Operators
 	ASSIGN = "="
 	PLUS = "+"
+	MINUS = "-"
+	BANG = "!"
+	FSLASH = "/"
+	ASTERISK = "*"
+
+	// Comparison
+	LT = "<"
+	GT = ">"
 
 	// Delimiters
 	COMMA = ","
