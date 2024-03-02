@@ -1,3 +1,3 @@
-module monkeylang.com/go/lang
+module monkeylang.com/go
 
 go 1.20
