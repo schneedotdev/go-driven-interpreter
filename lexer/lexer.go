@@ -1,12 +1,17 @@
 package lexer
 
-import "monkeylang.com/go/token"
+import (
+	"log"
+	"unicode/utf8"
+
+	"monkeylang.com/go/token"
+)
 
 type Lexer struct {
 	input string
 	position int // current position in input (points to current char)
 	readPosition int // current reading position in input (after current char)
-	ch byte // current char under examination
+	ch rune // current char under examination
 }
 
 func New(input string) *Lexer {
@@ -19,10 +24,16 @@ func (l *Lexer) readChar() {
 	if l.readPosition >= len(l.input) {
 		l.ch = 0
 	} else {
-		l.ch = l.input[l.readPosition]
+		r, size := utf8.DecodeRuneInString(l.input[l.readPosition:])
+		if r == utf8.RuneError {
+			log.Fatalf("Invalid utf-8 encoding")
+		}
+
+		l.ch = r
+		l.readPosition += size
 	}
-	l.position = l.readPosition
-	l.readPosition += 1
+
+	l.position = l.readPosition - 1
 }
 
 func (l *Lexer) NextToken() token.Token {
@@ -54,6 +65,6 @@ func (l *Lexer) NextToken() token.Token {
 	return tok
 }
 
-func newToken(tokenType token.TokenType, ch byte) token.Token {
+func newToken(tokenType token.TokenType, ch rune) token.Token {
 	return token.Token{Type: tokenType, Literal: string(ch)}
 }
