@@ -6,7 +6,7 @@ import (
 	"monkeylang.com/go/token"
 )
 
-func TestNextToken(t  *testing.T) {
+func TestNextToken(t *testing.T) {
 	input := `let five = 5;
 	let ten = 10;
 
@@ -26,7 +26,7 @@ func TestNextToken(t  *testing.T) {
 	`
 
 	tests := []struct {
-		expectedType token.TokenType
+		expectedType    token.TokenType
 		expectedLiteral string
 	}{
 		{token.LET, "let"},
@@ -100,19 +100,19 @@ func TestNextToken(t  *testing.T) {
 
 	for i, tt := range tests {
 		tok := l.NextToken()
-		
-		if tok.Type != tt.expectedType {
-    t.Fatalf("\x1b[31mtest %d [TokenType did not match]\n"+
-				"\texpected %q\n"+
-				"\treceived %q\x1b[0m",
-        i, tt.expectedType, tok.Type)
-}
 
-if tok.Literal != tt.expectedLiteral {
-    t.Fatalf("\x1b[31mtest %d [Literal did not match]\n"+
+		if tok.Type != tt.expectedType {
+			t.Fatalf("\x1b[31mtest %d [TokenType did not match]\n"+
 				"\texpected %q\n"+
 				"\treceived %q\x1b[0m",
-        i, tt.expectedLiteral, tok.Literal)
-}
+				i, tt.expectedType, tok.Type)
+		}
+
+		if tok.Literal != tt.expectedLiteral {
+			t.Fatalf("\x1b[31mtest %d [Literal did not match]\n"+
+				"\texpected %q\n"+
+				"\treceived %q\x1b[0m",
+				i, tt.expectedLiteral, tok.Literal)
+		}
 	}
 }
