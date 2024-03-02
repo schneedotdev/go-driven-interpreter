@@ -12,7 +12,7 @@ const (
 	EOF = "EOF"
 
 	// Identifiers and literatls
-	IDENT = "IDENT" // add, foobar, x, y
+	IDENT = "IDENT"
 	INT = "INT"
 	TRUE = "TRUE"
 	FALSE = "FALSE"
