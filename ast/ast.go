@@ -11,13 +11,13 @@ type Statement interface {
 	statementNode()
 }
 
-type Program struct {
-	Statements []Statement
-}
-
 type Expression interface {
 	Node
 	expressionNode()
+}
+
+type Program struct {
+	Statements []Statement
 }
 
 func (p *Program) TokenLiteral() string {
