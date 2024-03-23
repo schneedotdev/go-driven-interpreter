@@ -17,7 +17,6 @@ const (
 	ILLEGAL = "ILLEGAL" // tokens we don't classify
 	EOF     = "EOF"
 
-	// Identifiers and literatls
 	IDENT = "IDENT"
 	INT   = "INT"
 	TRUE  = "TRUE"
